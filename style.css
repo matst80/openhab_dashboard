@@ -87,12 +87,23 @@
 .silver, .switch {background:#BDC3C7}
 .concrete{background:#95A5A6}
 .asbestos{background:#7F8C8D}
-.bgimg {
+.itm {
 	background-size:cover;
 	background-position: center center;
 	background-repeat: no-repeat;
 }
-.weather{background-image:url(img/weather.jpg);}
+[data-type="TemperatureForecast"] .itm {
+    background-image:url(img/weather.jpg);
+}
+[data-type="Temperature"] .itm {
+    background-image:url(img/office.jpg);
+}
+[data-item="WindowLights"] .itm {
+    background-image:url(img/windows.jpg);
+}
+[data-item="Sovmorgon"] .itm {
+    background-image:url(img/sovmorgon.jpg);
+}
 
 .symbol {
 	border-radius: 100;
@@ -123,4 +134,7 @@
 	color:rgba(255,255,255,0.4);
 	bottom:10px;
 	right:10px;
+}
+.w2 .bginfo {
+	right: 40px; 
 }
