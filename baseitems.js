@@ -152,7 +152,8 @@
       var t = this,
           s = t.settings;
       t.valueElm = hdl.newElm('span',{classList:['itemvalue'],innerHTML:'...'},t.elm);
-
+      /*if (t.afterCreated)
+        t.afterCreated();*/
     }
   });
 
@@ -160,5 +161,32 @@
     color:'sun-flower',
     numberFormat:'{0} C'
   });
+
+  hdl.createType('TemperatureForecast',hdl.types.Temperature,{
+    color:'pomegranate',
+    gotForecase:function(d) {
+      var t = this;
+      var str = '';
+      var fc = d.forecast.txt_forecast.forecastday[0];
+      str = fc.fcttext_metric;
+      t.infoElm.innerHTML = str;
+      t.dayElm.innerHTML = fc.title;
+    },
+    fetchForecast:function() {
+      var t = this;
+
+      hdl.requestData('http://api.wunderground.com/api/02058a98650d9760/forecast/q/zmw:00000.6.02435.json',function(d) {
+        t.gotForecase(d);
+      },'callback');
+    },
+    createInner:function() {
+      var t = this;
+      t.dayElm = hdl.newElm('div',{classList:['bginfo']},t.elm);
+      t.parent.createInner.apply(this);
+      t.fetchForecast();
+      t.infoElm = hdl.newElm('div',{classList:['weatherinfo','itemvalue']},t.elm);
+    }
+  });
+
 
 })(document,window,window.dataHandler);
