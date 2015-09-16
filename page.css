@@ -2,22 +2,20 @@
   width: 100vw;
 	height: 100vh;
 	position: absolute;
-	backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transform-style: preserve-3d;
-  transition:all ease 0.3s;
   z-index: 1;
   opacity: 1;
 }
 
+.page,.hidden {
+
+  transition:all ease 0.3s;
+
+}
 
 .hidden-page, .hidden {
   visibility: hidden;
 	overflow: hidden;
   transform: translateY(100%);
-
   opacity: 0.3;
   z-index: 0;
 }
@@ -42,9 +40,9 @@
 }
 
 .pt-perspective {
-	position: relative;
 	width: 100%;
 	height: 100%;
-	perspective: 1200px;
+  position: relative;
+	perspective: 800px;
 	transform-style: preserve-3d;
 }
