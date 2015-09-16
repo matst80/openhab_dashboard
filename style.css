@@ -87,6 +87,12 @@
 .silver, .switch {background:#BDC3C7}
 .concrete{background:#95A5A6}
 .asbestos{background:#7F8C8D}
+.bgimg {
+	background-size:cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.weather{background-image:url(img/weather.jpg);}
 
 .symbol {
 	border-radius: 100;
