@@ -22,13 +22,23 @@
   z-index: 0;
 }
 
-.hidden {
-  display:none;
-}
-
 .backbutton {
   height:5vw;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+  transition:all ease 0.3s;
+  overflow:hidden;
+  z-index: 1;
+  opacity: 1;
   background-color:rgba(255,255,255,0.3);
+}
+
+.hidden {
+  margin-top:-5vw;
+  opacity: 0;
 }
 
 .pt-perspective {
