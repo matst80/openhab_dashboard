@@ -77,7 +77,11 @@
 			});
 		}
 	}
-
+	var backElm = d.getElementById('back');
+	backElm.addEventListener('click',function() {
+		hdl.changePage('start');
+		backElm.classList.add('hidden');
+	});
 	var opt = {};
 	var hdl = w.dataHandler = {
 		start:function(settings,skipitems) {
@@ -150,6 +154,7 @@
 				}
 				console.log('nya sidan',newpage);
 				newpage.classList.remove('hidden-page');
+				backElm.classList.remove('hidden');
 			}
 			else
 				console.log('no new page found');
