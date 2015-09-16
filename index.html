@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Daschboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div id="cnt">
+		<div class="h2">
+			<div class="w1 h2 p">
+				<widget class="w1 h1 p" data-item="WindowLights" data-label="Fönster" data-icon="square-o"></widget>
+				<widget class="w1 h1 p" data-item="Sovmorgon" data-icon="clock-o"></widget>
+			</div>
+			
+			<widget class="w4 h2 p" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-format="{0} C" data-formatsecond="{0}%" data-label="Uppe"></widget>
+		</div>
+		<div class="h1">
+			<widget class="w1 h1 p" data-item="Light_29" data-label="Bollar uppe"></widget>
+			<widget class="w2 h1 p" data-item="Lights"></widget>
+			<widget class="w2 h1 p" data-item="Light_15"></widget>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var defaults = {
+			host:'//192.168.11.27:8080' // no http or https, but must start with //
+		};
+		
+	</script>
+	<script type="text/javascript" src="logic.js"></script>
+
+</body>
+</html>
