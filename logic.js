@@ -131,6 +131,17 @@
 				prt.appendChild(r);
 			return r;
 		},
+		changePage:function(id) {
+			var newpage = d.getElementById(id);
+			var otherpages = d.getElementsByClassName('page');
+			for(var i=0;i<otherpages.length;i++) {
+				var oc = otherpages[i].classList;
+				if (!oc.contains('hidden-page'))
+					oc.add('hidden-page');
+			}
+			console.log('nya sidan',newpage);
+			newpage.classList.remove('hidden-page');
+		},
 		hookItemChange:function(url,cb) {
 			var io = new WebSocket('ws:'+url+'/state');
 			io.onmessage = function(e) {
@@ -139,5 +150,5 @@
 		},
 		requestData:urlCallback
 	};
-	
+
 })(document,window);

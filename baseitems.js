@@ -37,7 +37,10 @@
       t.elm = hdl.newElm('div',{ classList:[s.dataset.color||t.color].concat(t.classList||[])}, t.parentNode);
       t.createIcon();
       t.createLabel();
-
+      if (s.dataset.pagelink)
+        t.elm.addEventListener('click',function() {
+          hdl.changePage(s.dataset.pagelink);
+        });
     },
     createIcon:function() {
       var t = this,
@@ -164,6 +167,7 @@
 
   hdl.createType('TemperatureForecast',hdl.types.Temperature,{
     color:'pomegranate',
+    numberFormat:'Now {0} C',
     gotForecase:function(d) {
       var t = this;
       var str = '';
