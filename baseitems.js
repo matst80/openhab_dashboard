@@ -93,7 +93,7 @@
         if (s.openhabItem.state)
           t.handleStateChange(s.openhabItem.state);
         if (!t.noStateCallback && s.openhabItem.link)
-          t.hookChange(s.openhabItem.link.replace('http:',''));
+          t.hookChange(s.openhabItem.link.replace('http:','').replace('https:',''));
       }
     }
   });
@@ -147,7 +147,7 @@
         s.dataset.pagelink = pid;
       }
       function getWidget(d) {
-        var r = hdl.newElm('widget',{classList:['w1','h1']},t.page);
+        var r = hdl.newElm('widget',{classList:['w1','h1','p']},t.page);
         r.dataset.item = d.name;
         hdl.initWidget(r);
       }
