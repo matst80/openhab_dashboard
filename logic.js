@@ -45,25 +45,9 @@
 	function initItems() {
 		var itemElms = d.getElementsByTagName('widget');
 		for(var i=0;i<itemElms.length;i++) {
-			var elm = itemElms[i],
-				data = elm.dataset;
-			if (data.item || data.type) {
-				var ohData = {};
-				if (data.item && allItems[data.item]) {
-					ohData = allItems[data.item];
-				}
-				var type = data.type||(ohData.type || 'baseitem');
-				if (!hdl.types[type])
-					console.log('handler not found for ',type);
-				else {
-						//try {
-							elm.dashboardItem = new hdl.types[type]({openhabItem:ohData,dataset:data,element:elm});
-						/*}
-						catch(err) {
-							console.log('class not initiated',err,type);
-						}*/
-				}
-			}
+			var elm = itemElms[i];
+				dataHandler.initWidget(elm);
+
 		}
 	}
 
@@ -114,6 +98,26 @@
  			xhReq.setRequestHeader('Content-Type', 'text/plain');
  			xhReq.send(val);
 		},
+		initWidget:function(elm) {
+			var data = elm.dataset;
+			if (data.item || data.type) {
+				var ohData = {};
+				if (data.item && allItems[data.item]) {
+					ohData = allItems[data.item];
+				}
+				var type = data.type||(ohData.type || 'baseitem');
+				if (!hdl.types[type])
+					console.log('handler not found for ',type);
+				else {
+						//try {
+							elm.dashboardItem = new hdl.types[type]({openhabItem:ohData,dataset:data,element:elm});
+						/*}
+						catch(err) {
+							console.log('class not initiated',err,type);
+						}*/
+				}
+			}
+		},
 		newElm: function(nodeName,opt,prt) {
 			var r = d.createElement(nodeName);
 			if (opt)
@@ -125,7 +129,11 @@
 							r.classList.add(l[j]);
 						}
 					}
-					r[i] = l;
+					else if (i=='id') {
+						r.setAttribute('id',l);
+					}
+					else
+						r[i] = l;
 				}
 			if(prt)
 				prt.appendChild(r);
@@ -133,14 +141,18 @@
 		},
 		changePage:function(id) {
 			var newpage = d.getElementById(id);
-			var otherpages = d.getElementsByClassName('page');
-			for(var i=0;i<otherpages.length;i++) {
-				var oc = otherpages[i].classList;
-				if (!oc.contains('hidden-page'))
-					oc.add('hidden-page');
+			if (newpage) {
+				var otherpages = d.getElementsByClassName('page');
+				for(var i=0;i<otherpages.length;i++) {
+					var oc = otherpages[i].classList;
+					if (!oc.contains('hidden-page'))
+						oc.add('hidden-page');
+				}
+				console.log('nya sidan',newpage);
+				newpage.classList.remove('hidden-page');
 			}
-			console.log('nya sidan',newpage);
-			newpage.classList.remove('hidden-page');
+			else
+				console.log('no new page found');
 		},
 		hookItemChange:function(url,cb) {
 			var io = new WebSocket('ws:'+url+'/state');

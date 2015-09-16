@@ -16,9 +16,9 @@
 					data-item = openhab itemname
 					data-label = (optional) title
 					data-icon = (optional) icon
-
+					data-pagelink = (optional) links to other .page f.ex. "view2"
 				-->
-				<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupItem" data-label="Fönster" data-icon="square-o"></widget>
+				<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupLinkItem" data-label="Fönster" data-icon="square-o"></widget>
 				<widget class="w1 h1 p" data-item="Sovmorgon" data-type="SwitchItem" data-label="Sovmorgon" data-icon="clock-o"></widget>
 			</div>
 
@@ -54,6 +54,7 @@
 		USE THIS TO TRY WITHOUT OPENHAB
 
 		dataHandler.start({ },true);
+
 
 		*/
 	</script>

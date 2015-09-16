@@ -1,4 +1,4 @@
-(function(d,w,hdl) {
+(function(doc,w,hdl) {
 
   if (!String.prototype.format) {
     String.prototype.format = function() {
@@ -30,6 +30,18 @@
         t.initWidget();
       }
     },
+    addLink:function(link) {
+      var t = this,
+          s = t.settings;
+
+      link = link || s.dataset.pagelink;
+      if (!t.hasLink && link) {
+        t.hasLink = true;
+        t.elm.addEventListener('click',function() {
+          hdl.changePage(link);
+        });
+      }
+    },
     createBase:function() {
       var t = this,
           s = t.settings;
@@ -37,10 +49,7 @@
       t.elm = hdl.newElm('div',{ classList:[s.dataset.color||t.color].concat(t.classList||[])}, t.parentNode);
       t.createIcon();
       t.createLabel();
-      if (s.dataset.pagelink)
-        t.elm.addEventListener('click',function() {
-          hdl.changePage(s.dataset.pagelink);
-        });
+      t.addLink();
     },
     createIcon:function() {
       var t = this,
@@ -50,7 +59,8 @@
     createLabel:function() {
       var t = this,
           s = t.settings;
-      t.lblElm = hdl.newElm('div',{innerHTML:s.dataset.label||s.openhabItem.name},t.elm);
+      t.typeElm = hdl.newElm('div',{classList:['item-info'],innerHTML:'Klicka här?'},t.elm);
+      t.lblElm = hdl.newElm('div',{classList:['item-label'],innerHTML:s.dataset.label||s.openhabItem.name},t.elm);
     },
     handleStateChange:function(newstate,oldstate) {
       console.trace('state change unhandled, new state',newstate,'oldstate',oldstate);
@@ -104,6 +114,7 @@
           all = d.members.length,
           on = 0;
 
+      t.members = d.members;
       d.members.forEach(function(v,i) {
         if (v.state=='ON')
           on++;
@@ -122,6 +133,29 @@
 
           t.updateGroup();
     }
+  });
+
+  hdl.createType('GroupLinkItem',hdl.types.GroupItem,{
+    groupUpdated:function(d) {
+      var t = this,
+          s = t.settings,
+          pid = 'pg-'+s.openhabItem.name.toLowerCase();
+      t.parent.groupUpdated.apply(this,[d]);
+      console.log('skapar sida',pid,doc.body);
+      if (pid) {
+        t.page = hdl.newElm('div',{id:pid,classList:['hidden-page','page','groupitems']},doc.body);
+        s.dataset.pagelink = pid;
+      }
+      function getWidget(d) {
+        var r = hdl.newElm('widget',{classList:['w1','h1']},t.page);
+        r.dataset.item = d.name;
+        hdl.initWidget(r);
+      }
+      d.members.forEach(function(v,i) {
+        getWidget(v);
+      });
+      t.addLink(pid);
+    },
   });
 
   hdl.createType('SwitchItem',hdl.types.baseitem,{
