@@ -10,11 +10,19 @@
 	<div id="cnt">
 		<div class="h2">
 			<div class="w1 h2 p">
-				<widget class="w1 h1 p" data-item="WindowLights" data-label="Fönster" data-icon="square-o"></widget>
-				<widget class="w1 h1 p" data-item="Sovmorgon" data-icon="clock-o"></widget>
+				<!--
+					data-type = (optional inherits from openhabitem.type) type of handler
+					data-item = openhab itemname
+					data-label = (optional) title
+					data-icon = (optional) icon
+
+				-->
+				<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupItem" data-label="Fönster" data-icon="square-o"></widget>
+				<widget class="w1 h1 p" data-item="Sovmorgon" data-type="SwitchItem" data-label="Sovmorgon" data-icon="clock-o"></widget>
 			</div>
 
-			<widget class="w4 h2 p" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-format="{0} C" data-formatsecond="{0}%" data-label="Uppe"></widget>
+			<widget class="w4 h2 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
+
 		</div>
 		<div class="h1">
 			<widget class="w1 h1 p" data-item="Light_29" data-label="Bollar uppe"></widget>
@@ -25,6 +33,7 @@
 	<script type="text/javascript" src="logic.js"></script>
 	<script type="text/javascript" src="baseitems.js"></script>
 	<script>
+	
 		dataHandler.start( {
 			host:'//192.168.11.27:8080' // no http or https, but must start with //
 		});
@@ -33,9 +42,7 @@
 
 		USE THIS TO TRY WITHOUT OPENHAB
 
-		dataHandler.start( {
-			host:'//192.168.11.27:8080' // no http or https, but must start with //
-		});
+		dataHandler.start({ },true);
 
 		*/
 	</script>

@@ -79,7 +79,7 @@
       if (s.openhabItem) {
         if (s.openhabItem.state)
           t.handleStateChange(s.openhabItem.state);
-        if (!t.noStateCallback)
+        if (!t.noStateCallback && s.openhabItem.link)
           t.hookChange(s.openhabItem.link.replace('http:',''));
       }
     }
@@ -88,10 +88,13 @@
   hdl.createType('GroupItem',hdl.types.baseitem,{
     color:'amethyst',
     updateGroup:function() {
-      var t = this;
-      hdl.requestData(t.settings.openhabItem.link+'?type=jsonp',function(d) {
-        t.groupUpdated(d);
-      });
+      var t = this,
+          s = t.settings;
+      if (s.openhabItem.link) {
+        hdl.requestData(s.openhabItem.link+'?type=jsonp',function(d) {
+          t.groupUpdated(d);
+        });
+      }
     },
     groupUpdated:function(d) {
       var t = this,
@@ -139,10 +142,11 @@
   hdl.createType('NumberItem',hdl.types.baseitem,{
     color:'midnight-blue',
     icon:'umbrella',
-    numberFormat:'{0} C',
+    numberFormat:'{0}',
     handleStateChange:function(newstate,laststate) {
       var t = this;
-      t.valueElm.innerHTML = t.numberFormat.format(Math.round(newstate));
+      var fmt = t.settings.dataset.format||t.numberFormat;
+      t.valueElm.innerHTML = fmt.format(Math.round(newstate));
     },
     createInner:function() {
       var t = this,
@@ -150,6 +154,11 @@
       t.valueElm = hdl.newElm('span',{classList:['itemvalue'],innerHTML:'...'},t.elm);
 
     }
+  });
+
+  hdl.createType('Temperature',hdl.types.NumberItem,{
+    color:'sun-flower',
+    numberFormat:'{0} C'
   });
 
 })(document,window,window.dataHandler);
