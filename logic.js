@@ -15,10 +15,6 @@
 							t[i] = initdata[i];
 					}
 
-
-
-					if (t.preInit)
-							t.preInit.apply(t, arguments);
 					t.init.apply(t, arguments);
 
 			};
@@ -43,125 +39,105 @@
 			}
 			return newf;
 	}
-	//w.createType = createClass;
 
+	var cbId = 0;
 
-			var cbId = 0;
-
-			function initItems() {
-				var itemElms = d.getElementsByTagName('widget');
-				for(var i=0;i<itemElms.length;i++) {
-					var elm = itemElms[i],
-						data = elm.dataset;
-					if (data.item || data.type) {
-						var ohData = {};
-						if (data.item && allItems[data.item]) {
-							ohData = allItems[data.item];
-						}
-						var type = data.type||(ohData.type || 'baseitem');
-						if (!hdl.types[type])
-							console.log('handler not found for ',type);
-						else {
-								//try {
-									elm.dashboardItem = new hdl.types[type]({openhabItem:ohData,dataset:data,element:elm});
-								/*}
-								catch(err) {
-									console.log('class not initiated',err,type);
-								}*/
-							}
-						//appendItem(allItems[data.item],elm);
-					}
+	function initItems() {
+		var itemElms = d.getElementsByTagName('widget');
+		for(var i=0;i<itemElms.length;i++) {
+			var elm = itemElms[i],
+				data = elm.dataset;
+			if (data.item || data.type) {
+				var ohData = {};
+				if (data.item && allItems[data.item]) {
+					ohData = allItems[data.item];
 				}
-			}
-
-			function urlCallback(url,cb,cbparam) {
-				var nm = 'jsonp_'+(cbId++);
-				w[nm] = cb;
-				var el = d.createElement('script');
-				el.type = 'text/javascript';
-				var ch = url.indexOf('?')==-1?'?':'&';
-				el.src = url+ch+(cbparam||'jsoncallback')+'='+nm;
-				d.body.appendChild(el);
-			}
-
-			var allItems = {};
-			function findWidgets(skipitems) {
-				if (skipitems) {
-					initItems();
-				}
+				var type = data.type||(ohData.type || 'baseitem');
+				if (!hdl.types[type])
+					console.log('handler not found for ',type);
 				else {
-					urlCallback('http:'+opt.host+'/rest/items?type=jsonp',function(d) {
-						d.item.forEach(function(v,i) {
-							console.log(v);
-							allItems[v.name] = v;
-						});
-						w.dataHandler.items = allItems;
-						initItems();
-					});
+						//try {
+							elm.dashboardItem = new hdl.types[type]({openhabItem:ohData,dataset:data,element:elm});
+						/*}
+						catch(err) {
+							console.log('class not initiated',err,type);
+						}*/
 				}
 			}
-			/*urlCallback('http://192.168.11.27:8080/rest/sitemaps/default?type=jsonp',function(d) {
-				console.log('data',d);
-			});*/
-/*
-			function setState(link,val) {
-				var xhReq = new XMLHttpRequest();
-				xhReq.open("POST", link);
-	 			xhReq.setRequestHeader('Content-Type', 'text/plain');
-	 			xhReq.send(val);
+		}
+	}
+
+	function urlCallback(url,cb,cbparam) {
+		var nm = 'jsonp_'+(cbId++);
+		w[nm] = cb;
+		var el = d.createElement('script');
+		el.type = 'text/javascript';
+		var ch = url.indexOf('?')==-1?'?':'&';
+		el.src = url+ch+(cbparam||'jsoncallback')+'='+nm;
+		d.body.appendChild(el);
+	}
+
+	var allItems = {};
+	function findWidgets(skipitems) {
+		if (skipitems) {
+			initItems();
+		}
+		else {
+			urlCallback('http:'+opt.host+'/rest/items?type=jsonp',function(d) {
+				d.item.forEach(function(v,i) {
+					console.log(v);
+					allItems[v.name] = v;
+				});
+				w.dataHandler.items = allItems;
+				initItems();
+			});
+		}
+	}
+
+	var opt = {};
+	var hdl = w.dataHandler = {
+		start:function(settings,skipitems) {
+			opt = settings;
+			if (!opt) {
+				console.log('no settings in start please run dataHandler.start({host:"//ip:port"})');
+				return;
 			}
-*/
-			/*function hookItemChange(url,cb) {
-				var io = new WebSocket('ws:'+url+'/state');
-				io.onmessage = function(e) {
-					cb(e.data);
-				}
-			}*/
-			var opt = {};
-			var hdl = w.dataHandler = {
-				start:function(settings,skipitems) {
-					opt = settings;
-					if (!opt) {
-						console.log('no settings in start please run dataHandler.start({host:"//ip:port"})');
-						return;
-					}
-					hdl.settings = opt;
-					findWidgets(skipitems);
-				},
-				items:[],
-				types:{},
-				createType:createClass,
-				setItemState:function(link,val) {
-					var xhReq = new XMLHttpRequest();
-					xhReq.open("POST", link);
-		 			xhReq.setRequestHeader('Content-Type', 'text/plain');
-		 			xhReq.send(val);
-				},
-				newElm: function(nodeName,opt,prt) {
-					var r = d.createElement(nodeName);
-					if (opt)
-						for(var i in opt) {
-							var l = opt[i];
-							if (i=='classList')
-							{
-								for(var j=0;j<l.length;j++) {
-									r.classList.add(l[j]);
-								}
-							}
-							r[i] = l;
+			hdl.settings = opt;
+			findWidgets(skipitems);
+		},
+		items:[],
+		types:{},
+		createType:createClass,
+		setItemState:function(link,val) {
+			var xhReq = new XMLHttpRequest();
+			xhReq.open("POST", link);
+ 			xhReq.setRequestHeader('Content-Type', 'text/plain');
+ 			xhReq.send(val);
+		},
+		newElm: function(nodeName,opt,prt) {
+			var r = d.createElement(nodeName);
+			if (opt)
+				for(var i in opt) {
+					var l = opt[i];
+					if (i=='classList')
+					{
+						for(var j=0;j<l.length;j++) {
+							r.classList.add(l[j]);
 						}
-					if(prt)
-						prt.appendChild(r);
-					return r;
-				},
-				hookItemChange:function(url,cb) {
-					var io = new WebSocket('ws:'+url+'/state');
-					io.onmessage = function(e) {
-						cb(e.data);
 					}
-				},
-				requestData:urlCallback
-			};
-
-
-		})(document,window);
+					r[i] = l;
+				}
+			if(prt)
+				prt.appendChild(r);
+			return r;
+		},
+		hookItemChange:function(url,cb) {
+			var io = new WebSocket('ws:'+url+'/state');
+			io.onmessage = function(e) {
+				cb(e.data);
+			}
+		},
+		requestData:urlCallback
+	};
+	
+})(document,window);
