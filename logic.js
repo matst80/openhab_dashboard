@@ -113,12 +113,7 @@
 				if (!hdl.types[type])
 					console.log('handler not found for ',type);
 				else {
-						//try {
-							elm.dashboardItem = new hdl.types[type]({openhabItem:ohData,dataset:data,element:elm});
-						/*}
-						catch(err) {
-							console.log('class not initiated',err,type);
-						}*/
+						elm.dashboardItem = new hdl.types[type]({openhabItem:ohData,dataset:data,element:elm});
 				}
 			}
 		},
