@@ -8,52 +8,64 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
-	<div id="back" class="hidden backbutton">&laquo; Back...</div>
-	<div id="start" class="page">
-		<div class="h2">
-			<div class="w1 h2 p">
-				<!--
-					data-type = (optional inherits from openhabitem.type) type of handler
-					data-item = openhab itemname
-					data-label = (optional) title
-					data-icon = (optional) icon
-					data-pagelink = (optional) links to other .page f.ex. "view2"
-				-->
-				<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupLinkItem" data-label="Fönster" data-icon="square-o"></widget>
-				<widget class="w1 h1 p" data-item="Sovmorgon" data-type="SwitchItem" data-label="Sovmorgon" data-icon="clock-o"></widget>
+	<div class="pt-perspective">
+		<div id="back" class="hidden backbutton">&laquo; Back...</div>
+		<div id="start" class="page">
+			<div class="h2">
+				<div class="w1 h2 p">
+					<!--
+						data-type = (optional inherits from openhabitem.type) type of handler
+						data-item = openhab itemname
+						data-label = (optional) title
+						data-icon = (optional) icon
+						data-pagelink = (optional) links to other .page f.ex. "view2"
+					-->
+					<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupLinkItem" data-label="Fönster" data-icon="square-o"></widget>
+					<widget class="w1 h1 p" data-item="Sovmorgon" data-type="SwitchItem" data-label="Sovmorgon" data-icon="clock-o"></widget>
+				</div>
+
+				<widget class="w4 h2 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
+
 			</div>
-
-			<widget class="w4 h2 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
-
+			<div class="h1">
+				<widget class="w1 h1 p" data-item="Light_29" data-label="Bollar uppe"></widget>
+				<widget class="w2 h1 p" data-item="Lights" data-pagelink="view2" data-label="Goto other page"></widget>
+				<widget class="w2 h1 p" data-item="Light_15"></widget>
+			</div>
+			<div class="h2">
+					<widget class="w2 h2 p" data-type="TemperatureForecast" data-icon="umbrella" data-item="Temperature_GF_Corridor" data-label="Väder"></widget>
+					<widget class="w1 h1 p" data-item="Light_15"></widget>
+					<widget class="w1 h1 p" data-item="Light_15"></widget>
+					<widget class="w1 h1 p" data-item="Light_15"></widget>
+					<widget class="w1 h1 p" data-item="Light_15"></widget>
+			</div>
 		</div>
-		<div class="h1">
-			<widget class="w1 h1 p" data-item="Light_29" data-label="Bollar uppe"></widget>
-			<widget class="w2 h1 p" data-item="Lights" data-pagelink="view2" data-label="Goto other page"></widget>
-			<widget class="w2 h1 p" data-item="Light_15"></widget>
+		<div class="page hidden-page" id="view2">
+			<h1>annan sida</h1>
 		</div>
-		<div class="h2">
-				<widget class="w2 h2 p" data-type="TemperatureForecast" data-icon="umbrella" data-item="Temperature_GF_Corridor" data-label="Väder"></widget>
-				<widget class="w1 h1 p" data-item="Light_15"></widget>
-				<widget class="w1 h1 p" data-item="Light_15"></widget>
-				<widget class="w1 h1 p" data-item="Light_15"></widget>
-				<widget class="w1 h1 p" data-item="Light_15"></widget>
-		</div>
-	</div>
-	<div class="page hidden-page" id="view2">
-		<h1>annan sida</h1>
 	</div>
 	<script type="text/javascript" src="logic.js"></script>
 	<script type="text/javascript" src="baseitems.js"></script>
 	<script>
 
-	/*	dataHandler.start( {
+		/*
+			LOCAL
+		*/
+
+		dataHandler.start( {
 			host:'//192.168.11.27:8080' // no http or https, but must start with //
-		});*/
+		});
+
+		/*
+
+			CLOUD BASED
+
+
 
 		dataHandler.start( {
 			host:'//my.openhab.org'
 		});
-
+*/
 
 		/*
 

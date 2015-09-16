@@ -59,7 +59,7 @@
     createLabel:function() {
       var t = this,
           s = t.settings;
-      t.typeElm = hdl.newElm('div',{classList:['item-info'],innerHTML:'Klicka här?'},t.elm);
+      //t.typeElm = hdl.newElm('div',{classList:['item-info'],innerHTML:'Klicka här?'},t.elm);
       t.lblElm = hdl.newElm('div',{classList:['item-label'],innerHTML:s.dataset.label||s.openhabItem.name},t.elm);
     },
     handleStateChange:function(newstate,oldstate) {
