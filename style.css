@@ -3,18 +3,18 @@
 		margin:0;
 		padding:0;
 		font-family: "Roboto";
-		font-weight: 300;	
+		font-weight: 300;
 
 	}
-	::-webkit-scrollbar { 
-	    display: none; 
+	::-webkit-scrollbar {
+	    display: none;
 	}
 	#cnt {
-		
-		
+
+
 	}
 	* {
-		
+
 		margin:0;
 		padding:0;
 
@@ -31,7 +31,7 @@
 	.w4 {
 		width:80vw;
 	}
-	
+
 	.h1 {
 		height:20vw;
 	}
@@ -61,7 +61,7 @@
 		text-align: center;
 		color:#eee;
 	}
-	
+
 
 
 
@@ -94,8 +94,12 @@
 
 .symbol:before {
 	font-size: 10vw;
-	
+
 	color:#eee
+}
+
+.ON .fa:before {
+	text-shadow: 2px 2px 8px rgba(128,128,0,0.5);
 }
 
 .grp-lbl, .itemvalue {
