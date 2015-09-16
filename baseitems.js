@@ -32,8 +32,9 @@
       var t = this;
       var s = t.settings;
       t.elm = hdl.newElm('div',{ classList:[s.dataset.color||t.color].concat(t.classList||[])}, t.parentNode);
-      t.createLabel();
       t.createIcon();
+      t.createLabel();
+
       if (s.openhabItem.state)
         t.handleStateChange(s.openhabItem.state);
       if (!t.noStateCallback)
@@ -126,6 +127,7 @@
   });
 
   hdl.createType('GroupItem',hdl.types.baseitem,{
+    color:'amethyst',
     createInner:function() {
       var t = this,
           s = t.settings;
@@ -152,6 +154,20 @@
     },
     createInner:function() {
 
+    }
+  });
+
+  hdl.createType('NumberItem',hdl.types.baseitem,{
+    color:'midnight-blue',
+    icon:'umbrella',
+    handleStateChange:function(newstate,laststate) {
+      var t = this;
+      t.lblElm.innerHTML = '{0} C'.format(Math.round(newstate));
+    },
+    createInner:function() {
+      var t = this,
+          s = t.settings;
+      t.valueElm = hdl.newElm('span',{classList:['itemvalue'],innerHTML:s.openhabItem.state});
     }
   });
 
