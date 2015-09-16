@@ -84,17 +84,21 @@
 				d.body.appendChild(el);
 			}
 
-			var allItems;
-			function findWidgets() {
-				urlCallback('http:'+opt.host+'/rest/items?type=jsonp',function(d) {
-					allItems = {};
-					d.item.forEach(function(v,i) {
-						console.log(v);
-						allItems[v.name] = v;
-					});
-					w.dataHandler.items = allItems;
+			var allItems = {};
+			function findWidgets(skipitems) {
+				if (skipitems) {
 					initItems();
-				});
+				}
+				else {
+					urlCallback('http:'+opt.host+'/rest/items?type=jsonp',function(d) {
+						d.item.forEach(function(v,i) {
+							console.log(v);
+							allItems[v.name] = v;
+						});
+						w.dataHandler.items = allItems;
+						initItems();
+					});
+				}
 			}
 			/*urlCallback('http://192.168.11.27:8080/rest/sitemaps/default?type=jsonp',function(d) {
 				console.log('data',d);
@@ -115,14 +119,14 @@
 			}*/
 			var opt = {};
 			var hdl = w.dataHandler = {
-				start:function(settings) {
+				start:function(settings,skipitems) {
 					opt = settings;
 					if (!opt) {
 						console.log('no settings in start please run dataHandler.start({host:"//ip:port"})');
 						return;
 					}
 					hdl.settings = opt;
-					findWidgets();
+					findWidgets(skipitems);
 				},
 				items:[],
 				types:{},
