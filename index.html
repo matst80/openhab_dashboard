@@ -50,6 +50,17 @@
 	<script>
 
 		/*
+			SETTINGS FOR ITEM TYPES
+		*/
+
+
+		itemSettings = {
+			workdayUrl:'http://api.dryg.net/dagar/v2.1/',
+			forecastUrl:'http://api.wunderground.com/api/02058a98650d9760/forecast/q/zmw:00000.6.02435.json'
+		};
+
+
+		/*
 			LOCAL
 		*/
 
@@ -58,23 +69,18 @@
 		});
 
 		/*
-
-			CLOUD BASED
-
-
+			CLOUD BASED, remember to login first
 
 		dataHandler.start( {
 			host:'//my.openhab.org'
 		});
-*/
+
+		*/
 
 		/*
+			USE THIS TO TRY WITHOUT OPENHAB
 
-		USE THIS TO TRY WITHOUT OPENHAB
-
-		dataHandler.start({ },true);
-
-
+			dataHandler.start({ },true);
 		*/
 	</script>
 </body>

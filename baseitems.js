@@ -214,11 +214,9 @@
 
       var t = this,
           s = t.settings,
-          dt = getDateString(new Date(new Date().getTime()+1000*3600*24),'/');
+          dt = getDateString(new Date(new Date().getTime()+1000*3600*(s.dataset.hours||24)),'/');
 
-
-      hdl.requestData('http://api.dryg.net/dagar/v2.1/'+dt,function(d) {
-        console.log('freedaydata',d);
+      hdl.requestData(w.itemSettings.workdayUrl+dt,function(d) {
         var tm = d.dagar[0];
         t.lblElm.innerHTML = tm.veckodag;
         if (tm["arbetsfri dag"]=='Ja')
@@ -241,7 +239,7 @@
     fetchForecast:function() {
       var t = this;
 
-      hdl.requestData('http://api.wunderground.com/api/02058a98650d9760/forecast/q/zmw:00000.6.02435.json',function(d) {
+      hdl.requestData(itemSettings.forecastUrl,function(d) {
         t.gotForecase(d);
       },'callback');
     },
