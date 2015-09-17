@@ -6,7 +6,7 @@
   opacity: 1;
 }
 
-.page,.hidden {
+.page,.hidden, .itm {
 
   transition:all ease 0.3s;
 

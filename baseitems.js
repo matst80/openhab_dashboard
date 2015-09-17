@@ -79,7 +79,8 @@
     hookChange:function(url) {
       var t = this,
           s = t.settings;
-      hdl.hookItemChange(url,function(d) {
+      hdl.hookItemChange(url+'/state',function(d) {
+        console.log('got state',d);
         t.stateChange(d);
       });
     },
@@ -90,11 +91,9 @@
       t.on = hdl.newElm('div',{classList:['itemtrigger','turn-on'],innerHTML:'<em class="fa fa-plus"></em>'},t.elm);
       t.off = hdl.newElm('div',{classList:['itemtrigger','turn-off'],innerHTML:'<em class="fa fa-minus"></em>'},t.elm);
       t.on.addEventListener('click',function() {
-
         t.setState('ON');
       });
       t.off.addEventListener('click',function() {
-
         t.setState('OFF');
       });
     },
@@ -107,8 +106,11 @@
       if (s.openhabItem) {
         if (s.openhabItem.state)
           t.handleStateChange(s.openhabItem.state);
-        if (!t.noStateCallback && s.openhabItem.link)
-          t.hookChange(s.openhabItem.link.replace('http:','').replace('https:','')+'/state');
+        if (!t.noStateCallback && s.openhabItem.link) {
+          var hurl = s.openhabItem.link.replace('http:','').replace('https:','');
+          console.log('hooking ',hurl)
+          t.hookChange(hurl);
+        }
       }
     }
   });
@@ -124,10 +126,10 @@
     createInner:function() {
       var t = this,
           s = t.settings;
-
       t.addSwitches();
     }
   });
+
 
   hdl.createType('GroupItem',base,{
     color:'amethyst',

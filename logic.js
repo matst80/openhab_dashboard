@@ -155,7 +155,13 @@
 				console.log('no new page found');
 		},
 		hookItemChange:function(url,cb) {
-			var io = new WebSocket('ws:'+url+'/state');
+			var io = new WebSocket('ws:'+url);
+			io.onerror = function() {
+				console.log('erorororroror');
+			}
+			io.onconnect = function() {
+				console.log('connected to '+url);
+			};
 			io.onmessage = function(e) {
 				cb(e.data);
 			}

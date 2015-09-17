@@ -88,6 +88,10 @@
 	transform: rotate(180deg);
 }
 
+.ON .symbol {
+	transform: rotate(180deg);
+}
+
 .turn-off {
 
 	right:-2vw;
