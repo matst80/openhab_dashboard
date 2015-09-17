@@ -67,21 +67,19 @@
 
 .itemtrigger {
 	position: absolute;
-	width:30%;
-	height:200%;
-	text-align: center;
-	vertical-align: middle;
-	font-size: 5vw;
-	transform-origin: center center;
+	width:50%;
+	height:250%;
+	border-radius: 900px;
+	font-size: 2vw;
+	
 	transform: rotate(-45deg);
 }
 
 .turn-on {
-	left:-2vw;
-	top:-2vw;
-
+	left:-4vw;
+	top:-4vw;
 	z-index: 0;
-	background-color: rgba(255,255,255,0.2);
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.5));
 }
 
 .ON {
@@ -94,11 +92,11 @@
 
 .turn-off {
 
-	right:-2vw;
-
+	right:-4vw;
+	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
 
 	z-index: 0;
-	bottom:-2vw;
+	bottom:-4vw;
 	background-color: rgba(0,0,0,0.2);
 }
 
@@ -144,6 +142,8 @@
 .symbol {
 	border-radius: 100;
 	width:50%;
+	z-index: 3;
+	position: relative;
 	margin:2vw auto 0;
 }
 
