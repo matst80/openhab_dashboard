@@ -87,8 +87,8 @@
       var t = this,
           s = t.settings;
 
-      t.on = hdl.newElm('div',{classList:['itemtrigger','turn-on']},t.elm);
-      t.off = hdl.newElm('div',{classList:['itemtrigger','turn-off']},t.elm);
+      t.on = hdl.newElm('div',{classList:['itemtrigger','turn-on'],innerHTML:'<em class="fa fa-plus"></em>'},t.elm);
+      t.off = hdl.newElm('div',{classList:['itemtrigger','turn-off'],innerHTML:'<em class="fa fa-minus"></em>'},t.elm);
       t.on.addEventListener('click',function() {
 
         t.setState('ON');
