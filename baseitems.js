@@ -83,6 +83,21 @@
         t.stateChange(d);
       });
     },
+    addSwitches:function() {
+      var t = this,
+          s = t.settings;
+
+      t.on = hdl.newElm('div',{classList:['itemtrigger','turn-on']},t.elm);
+      t.off = hdl.newElm('div',{classList:['itemtrigger','turn-off']},t.elm);
+      t.on.addEventListener('click',function() {
+
+        t.setState('ON');
+      });
+      t.off.addEventListener('click',function() {
+
+        t.setState('OFF');
+      });
+    },
     initWidget:function() {
       var t = this,
           s = t.settings;
@@ -98,7 +113,23 @@
     }
   });
 
-  hdl.createType('GroupItem',hdl.types.baseitem,{
+  var sw = hdl.createType('SwitchItem',base,{
+    handleStateChange:function(newstate,laststate) {
+      console.log('settings new state on swtich',newstate);
+      var t = this;
+      if (laststate)
+        t.elm.classList.remove(laststate);
+      t.elm.classList.add(newstate);
+    },
+    createInner:function() {
+      var t = this,
+          s = t.settings;
+
+      t.addSwitches();
+    }
+  });
+
+  hdl.createType('GroupItem',base,{
     color:'amethyst',
     updateGroup:function() {
       var t = this,
@@ -130,8 +161,9 @@
     createInner:function() {
       var t = this,
           s = t.settings;
+      t.addSwitches();
 
-          t.updateGroup();
+      t.updateGroup();
     }
   });
 
@@ -156,24 +188,6 @@
       });
       t.addLink(pid);
     },
-  });
-
-  hdl.createType('SwitchItem',hdl.types.baseitem,{
-    handleStateChange:function(newstate,laststate) {
-      console.log('settings new state on swtich',newstate);
-      var t = this;
-      if (laststate)
-        t.elm.classList.remove(laststate);
-      t.elm.classList.add(newstate);
-    },
-    createInner:function() {
-      var t = this,
-          s = t.settings;
-      t.elm.addEventListener('click',function() {
-        var oldState = s.openhabItem.state=='ON';
-        t.setState(oldState?'OFF':'ON');
-      });
-    }
   });
 
   hdl.createType('NumberItem',hdl.types.baseitem,{
@@ -208,6 +222,24 @@
   }
 
   hdl.createType('WorkFreeDay',hdl.types.baseitem,{
+    color:'sun-flower',
+    icon:'thumbs-o-down',
+    createInner:function() {
+
+      var t = this,
+          s = t.settings,
+          dt = getDateString(new Date(new Date().getTime()+1000*3600*(s.dataset.hours||24)),'/');
+
+      hdl.requestData(w.itemSettings.workdayUrl+dt,function(d) {
+        var tm = d.dagar[0];
+        t.lblElm.innerHTML = tm.veckodag;
+        if (tm["arbetsfri dag"]=='Ja')
+          t.iconElm.setAttribute('class','fa fa-thumbs-o-up symbol');
+      },'callback')
+    }
+  });
+
+  hdl.createType('TrashDay',hdl.types.baseitem,{
     color:'sun-flower',
     icon:'thumbs-o-down',
     createInner:function() {
