@@ -199,6 +199,34 @@
     numberFormat:'{0} C'
   });
 
+
+  function getDateString(dt,sep) {
+    var yyyy = dt.getFullYear().toString();
+   var mm = (dt.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = dt.getDate().toString();
+   return yyyy +(sep||'')+ (mm[1]?mm:"0"+mm[0]) +(sep||'')+ (dd[1]?dd:"0"+dd[0]);
+  }
+
+  hdl.createType('WorkFreeDay',hdl.types.baseitem,{
+    color:'sun-flower',
+    icon:'thumbs-o-down',
+    createInner:function() {
+
+      var t = this,
+          s = t.settings,
+          dt = getDateString(new Date(new Date().getTime()+1000*3600*24),'/');
+
+
+      hdl.requestData('http://api.dryg.net/dagar/v2.1/'+dt,function(d) {
+        console.log('freedaydata',d);
+        var tm = d.dagar[0];
+        t.lblElm.innerHTML = tm.veckodag;
+        if (tm["arbetsfri dag"]=='Ja')
+          t.iconElm.setAttribute('class','fa fa-thumbs-o-up symbol');
+      },'callback')
+    }
+  });
+
   hdl.createType('TemperatureForecast',hdl.types.Temperature,{
     color:'pomegranate',
     numberFormat:'Now {0} C',
