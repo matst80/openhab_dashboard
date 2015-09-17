@@ -108,7 +108,7 @@
         if (s.openhabItem.state)
           t.handleStateChange(s.openhabItem.state);
         if (!t.noStateCallback && s.openhabItem.link)
-          t.hookChange(s.openhabItem.link.replace('http:','').replace('https:',''));
+          t.hookChange(s.openhabItem.link.replace('http:','').replace('https:','')+'/state');
       }
     }
   });
@@ -116,10 +116,10 @@
   var sw = hdl.createType('SwitchItem',base,{
     handleStateChange:function(newstate,laststate) {
       console.log('settings new state on swtich',newstate);
-      var t = this;
-      if (laststate)
-        t.elm.classList.remove(laststate);
-      t.elm.classList.add(newstate);
+      var t = this,
+          cl = t.elm.classList;
+      cl.remove('ON','OFF');
+      cl.add(newstate);
     },
     createInner:function() {
       var t = this,
