@@ -1,10 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 	body {
 		margin:0;
 		padding:0;
-		font-family: "Roboto";
+		font-family: 'Lato', sans-serif;
 		font-weight: 300;
-		background: #000 url(bg.jpg) no-repeat
+		background: #000 url(bg3.jpg) no-repeat;
+		background-size: cover;
+	}
+	h1,h2,h3,h4 {
+		font-family: 'Lato', sans-serif;
 	}
 	::-webkit-scrollbar {
 	    display: none;
@@ -58,47 +63,13 @@
 		right:2px;
 		bottom:2px;
 		border-radius: 50px 0 90px 0;
-		background:#E67E22;
+		background:rgba(255, 255, 255,0.3);
 		text-align: center;
 		color:#eee;
 		overflow:hidden;
 	}
 
 
-.itemtrigger {
-	position: absolute;
-	width:50%;
-	height:250%;
-	border-radius: 900px;
-	font-size: 2vw;
-	
-	transform: rotate(-45deg);
-}
-
-.turn-on {
-	left:-4vw;
-	top:-4vw;
-	z-index: 0;
-	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.5));
-}
-
-.ON {
-	transform: rotate(180deg);
-}
-
-.ON .symbol {
-	transform: rotate(180deg);
-}
-
-.turn-off {
-
-	right:-4vw;
-	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
-
-	z-index: 0;
-	bottom:-4vw;
-	background-color: rgba(0,0,0,0.2);
-}
 
 
 .turquoise{background:rgba(#1ABC9C,0.5)}
@@ -121,29 +92,16 @@
 .silver, .switch {background:#BDC3C7}
 .concrete{background:#95A5A6}
 .asbestos{background:#7F8C8D}
-.itm {
+.bgimg {
 	background-size:cover;
 	background-position: center center;
 	background-repeat: no-repeat;
 }
-[data-type="TemperatureForecast"] .itm {
-    background-image:url(img/weather.jpg);
-}
-[data-type="Temperature"] .itm {
-    background-image:url(img/office.jpg);
-}
-[data-item="WindowLights"] .itm {
-    background-image:url(img/windows.jpg);
-}
-[data-item="Sovmorgon"] .itm {
-    background-image:url(img/sovmorgon.jpg);
-}
+.weather{background-image:url(img/weather.jpg);}
 
 .symbol {
 	border-radius: 100;
 	width:50%;
-	z-index: 3;
-	position: relative;
 	margin:2vw auto 0;
 }
 
@@ -170,7 +128,4 @@
 	color:rgba(255,255,255,0.4);
 	bottom:10px;
 	right:10px;
-}
-.w2 .bginfo {
-	right: 40px;
 }
