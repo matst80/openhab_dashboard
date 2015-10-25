@@ -14,7 +14,7 @@
 		<div id="back" class="hidden backbutton">&laquo; Back...</div>
 		<div id="start" class="page">
 			<div class="h2">
-				<div class="h2 w1">
+				<div class="h2">
 					<!--
 						data-type = (optional inherits from openhabitem.type) type of handler
 						data-item = openhab itemname
@@ -22,12 +22,15 @@
 						data-icon = (optional) icon
 						data-pagelink = (optional) links to other .page f.ex. "view2"
 					-->
+					<widget class="w2 h2 p" data-type="TemperatureForecast" data-icon="umbrella" data-item="Weather_Temperature" data-label="Väder"></widget>
+					<widget class="w2 h2 p" data-type="HomeState" data-item="HomeState" data-icon="umbrella" data-label="Läge"></widget>
+					<widget class="w1 h1 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
+					<widget class="w1 h1 p" data-type="WorkFreeDay" data-label="Jobba imorgon"></widget>
 					<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupLinkItem" data-label="Fönster" data-icon="square-o"></widget>
 					<widget class="w1 h1 p" data-item="Sovmorgon" data-type="SwitchItem" data-label="Sovmorgon" data-icon="clock-o"></widget>
-				</div>
-				<div class="w3">
-					<widget class="w2 h2 p" data-type="TemperatureForecast" data-icon="umbrella" data-item="Temperature_GF_Corridor" data-label="Väder"></widget>
-					<widget class="w1 h2 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
+
+
+
 				</div>
 			</div>
 			<div class="h1">
@@ -41,7 +44,7 @@
 					<widget class="w1 h1 p" data-item="Light_15"></widget>
 					<widget class="w1 h1 p" data-item="Light_15"></widget>
 					<widget class="w1 h1 p" data-item="Light_15"></widget>
-					<widget class="w1 h1 p" data-type="WorkFreeDay" data-label="Jobba imorgon"></widget>
+
 			</div>
 		</div>
 		<div class="page hidden-page" id="view2">

@@ -108,7 +108,6 @@
           t.handleStateChange(s.openhabItem.state);
         if (!t.noStateCallback && s.openhabItem.link) {
           var hurl = s.openhabItem.link.replace('http:','').replace('https:','');
-          console.log('hooking ',hurl)
           t.hookChange(hurl);
         }
       }
@@ -117,7 +116,7 @@
 
   var sw = hdl.createType('SwitchItem',base,{
     handleStateChange:function(newstate,laststate) {
-      console.log('settings new state on swtich',newstate);
+      //console.log('settings new state on swtich',newstate);
       var t = this,
           cl = t.elm.classList;
       cl.remove('ON','OFF');
@@ -210,10 +209,22 @@
     }
   });
 
+  var homeStates = ['Dag','Kväll','Natt','Inte hemma','Vardagsrum','Uppe'];
+
+  hdl.createType('HomeState',hdl.types.NumberItem,{
+    color:'emerland',
+    handleStateChange:function(newstate,laststate) {
+      var t = this;
+      console.log('ny status',newstate);
+      t.valueElm.innerHTML = homeStates[newstate];
+    }
+  });
+
   hdl.createType('Temperature',hdl.types.NumberItem,{
     color:'sun-flower',
     numberFormat:'{0} C'
   });
+
 
 
   function getDateString(dt,sep) {
