@@ -14,7 +14,7 @@
 		<div id="back" class="hidden backbutton">&laquo; Back...</div>
 		<div id="start" class="page">
 			<div class="h2">
-				<div class="w1 h2 p">
+				<div class="h2 w1">
 					<!--
 						data-type = (optional inherits from openhabitem.type) type of handler
 						data-item = openhab itemname
@@ -25,9 +25,10 @@
 					<widget class="w1 h1 p" data-item="WindowLights" data-type="GroupLinkItem" data-label="Fönster" data-icon="square-o"></widget>
 					<widget class="w1 h1 p" data-item="Sovmorgon" data-type="SwitchItem" data-label="Sovmorgon" data-icon="clock-o"></widget>
 				</div>
-
-				<widget class="w4 h2 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
-
+				<div class="w3">
+					<widget class="w2 h2 p" data-type="TemperatureForecast" data-icon="umbrella" data-item="Temperature_GF_Corridor" data-label="Väder"></widget>
+					<widget class="w1 h2 p" data-type="Temperature" data-icon="umbrella" data-item="Temperature_FF_Office" data-itemsecond="Hum_FF_Office" data-label="Uppe"></widget>
+				</div>
 			</div>
 			<div class="h1">
 				<widget class="w1 h1 p" data-item="Light_29" data-label="Bollar uppe"></widget>
@@ -35,7 +36,7 @@
 				<widget class="w2 h1 p" data-item="Light_15"></widget>
 			</div>
 			<div class="h2">
-					<widget class="w2 h2 p" data-type="TemperatureForecast" data-icon="umbrella" data-item="Temperature_GF_Corridor" data-label="Väder"></widget>
+
 					<widget class="w1 h1 p" data-item="Light_15"></widget>
 					<widget class="w1 h1 p" data-item="Light_15"></widget>
 					<widget class="w1 h1 p" data-item="Light_15"></widget>
@@ -71,7 +72,7 @@
 		*/
 
 		dataHandler.start( {
-			host:'//192.168.11.27:8080' // no http or https, but must start with //
+			host:'//10.10.10.244:8080' // no http or https, but must start with //
 		});
 
 		/*
